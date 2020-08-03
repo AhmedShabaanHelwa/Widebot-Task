@@ -9,5 +9,6 @@ namespace Core.Entities
         public string first_name { get; set; }
         public string last_name { get; set; }
         public string avatar { get; set; }
+        public Ad ad { get; set; }
     }
 }
