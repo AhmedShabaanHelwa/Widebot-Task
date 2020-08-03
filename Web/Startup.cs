@@ -1,4 +1,6 @@
+using Core.Interfaces;
 using Infrastructure;
+using Infrastructure.UnitOfWork;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +35,8 @@ namespace Web
                 //!AhmedShaban:  Add Database Provider and configure connection string
                 options.UseSqlServer(configuration.GetConnectionString("TaskDB"));
             });
+            //!AhmedShaban: Add the Unit of Work service implemntation
+            services.AddScoped(typeof(IUnitOfWork<>), typeof(UnitOfWork<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
