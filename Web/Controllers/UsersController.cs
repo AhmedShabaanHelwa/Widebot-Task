@@ -4,6 +4,8 @@ using Core.Entities;
 using Infrastructure.Repository;
 using System.Threading.Tasks;
 using System.Linq;
+using Web.Repository;
+using Core.Interfaces;
 
 namespace Web.Controllers
 {
@@ -11,18 +13,28 @@ namespace Web.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly GenericRepository<User> _user;
-
-        public UsersController(GenericRepository<User> user)
+        private  IGenericRepository<User> repository = null;
+        private  IUsersRepository user = null;
+        
+        public UsersController()
         {
-            _user = user;
+            this.user = new UsersRepository();
+            this.repository = new GenericRepository<User>();
+        }
+        public UsersController(UsersRepository repository)
+        {
+            this.user = repository;
+        }
+        public UsersController(IGenericRepository<User> repository)
+        {
+            this.repository = repository;
         }
 
         // GET: api/Users
         [HttpGet]
         public IEnumerable<User> GetUsers()
         {
-            var model =  _user.GetAll();
+            var model =  user.GetAll();
             return model;
         }
         /*

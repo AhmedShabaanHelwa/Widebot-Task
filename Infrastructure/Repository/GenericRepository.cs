@@ -8,10 +8,15 @@ namespace Infrastructure.Repository
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         //!AhmedShaban: object to hold the context
-        private readonly DataContext _context;
+        private DataContext _context = null;
         //!AhmedShaban: Table that represents the repository
         private DbSet<T> table = null;
 
+        public GenericRepository()
+        {
+            this._context = new DataContext();
+            table = _context.Set<T>();
+        }
         /* !AhmedShaban: Constructor to inject the DataContext dependency.
          * It originally represents the EF Core.
          */
